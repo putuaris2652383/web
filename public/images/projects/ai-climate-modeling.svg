@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#102d25"/>
+<rect x="70" y="70" width="1460" height="760" rx="42" fill="#173d31" stroke="#52755f" stroke-width="2"/>
+<g opacity=".25" stroke="#b5cdb5" fill="none"><path d="M100 120 H1500"/><path d="M100 200 H1500"/><path d="M100 280 H1500"/><path d="M100 360 H1500"/><path d="M100 440 H1500"/><path d="M100 520 H1500"/><path d="M100 600 H1500"/><path d="M100 680 H1500"/></g>
+<text x="120" y="180" font-family="Arial,sans-serif" font-size="34" fill="#d8c9a7" letter-spacing="5">PUTU ARISGUNARTA / RESEARCH</text>
+<text x="120" y="285" font-family="Arial,sans-serif" font-size="78" font-weight="700" fill="#f4eedc">AI-Based Climate Modeling</text>
+<text x="120" y="350" font-family="Arial,sans-serif" font-size="32" fill="#c7d8ca">Daily temperature prediction • FNN • R = 0.97</text>
+<path d="M900 610 C980 500 1040 570 1100 460 S1240 430 1300 330 S1400 380 1490 250" fill="none" stroke="#e4b34a" stroke-width="10"/>
+<path d="M900 610 C980 590 1030 610 1100 570 S1240 620 1300 540 S1410 590 1490 530" fill="none" stroke="#8fb48f" stroke-width="7"/>
+<g fill="#e4b34a"><circle cx="900" cy="610" r="11"/><circle cx="1100" cy="460" r="11"/><circle cx="1300" cy="330" r="11"/><circle cx="1490" cy="250" r="11"/></g>
+<circle cx="1430" cy="155" r="22" fill="#e4b34a"/>
+<circle cx="1490" cy="155" r="8" fill="#d8c9a7"/>
+</svg>

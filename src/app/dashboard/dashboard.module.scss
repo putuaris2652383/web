@@ -1,0 +1,99 @@
+.impactVisualization {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+}
+
+.impactList {
+  display: grid;
+  gap: 6px;
+}
+
+.impactButton {
+  border: 1px solid var(--neutral-alpha-weak);
+  border-radius: var(--radius-l);
+  padding: 8px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.impactButtonActive {
+  border-color: var(--brand-solid-medium);
+  background: var(--brand-alpha-weak);
+}
+
+.impactButtonHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.impactTrack {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--neutral-alpha-weak);
+  overflow: hidden;
+}
+
+.impactBar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--brand-solid-strong);
+}
+
+.impactDetail {
+  border: 1px solid var(--brand-alpha-medium);
+  border-radius: var(--radius-l);
+  background: var(--brand-alpha-weak);
+  padding: 12px;
+}
+
+.researchCard {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.researchDescription {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.timeline {
+  position: relative;
+  gap: 0;
+}
+
+.timelineItem {
+  position: relative;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--neutral-alpha-weak);
+}
+
+.timelineItem:last-child {
+  border-bottom: 0;
+}
+
+.timelineYear {
+  width: 80px;
+  flex: 0 0 80px;
+  padding-top: 2px;
+}
+
+@media (max-width: 560px) {
+  .impactVisualization {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineYear {
+    width: 72px;
+    flex-basis: 72px;
+  }
+}
