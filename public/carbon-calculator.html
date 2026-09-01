@@ -797,6 +797,9 @@
                         <button onclick="copyShareText()" class="py-3 px-5 bg-brandGreen hover:bg-brandLightGreen text-white rounded-xl font-extrabold text-sm border-2 border-brandGreen shadow-md flex items-center justify-center gap-2">
                             <i class="fa-solid fa-copy"></i> Salin Teks Story
                         </button>
+                        <button id="saveDbButton" onclick="saveSubmissionManually()" class="py-3 px-5 bg-[#1e3a2b] hover:bg-brandGreen text-white rounded-xl font-extrabold text-sm border-2 border-brandGreen shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-database"></i> Simpan ke Database
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1245,19 +1248,12 @@
             document.getElementById('scientificModal').classList.add('hidden');
         }
 
-        async function saveSubmissionToCloud() {
-            // Google Apps Script Web App URL integration point
-            const GOOGLE_SCRIPT_URL = '';
-
-            if (!GOOGLE_SCRIPT_URL) {
-                console.log("ℹ️ URL Google Apps Script belum dipasang.");
-                return;
-            }
-
+        function buildSubmissionPayload() {
+            updateReportCard();
             const totalScore = appState.tkp1.score + appState.tkp2.score + appState.tkp3.score + appState.tkp4.score + appState.tkp5.score;
             const totalAvoided = appState.tkp1.avoidedEmissions + appState.tkp2.avoidedEmissions + appState.tkp3.avoidedEmissions;
 
-            const payload = {
+            return {
                 agentName: appState.agentName,
                 agentGroup: appState.agentGroup,
                 agentDate: appState.agentDate,
@@ -1271,17 +1267,53 @@
                 tkp3_sheets: appState.tkp3.sheets,
                 tkp4_km: appState.tkp4.km
             };
+        }
+
+        // Sends the current report to the database. Set `silent` to skip toasts (used on download).
+        async function saveSubmissionToCloud(silent = true) {
+            const payload = buildSubmissionPayload();
+
+            if (!payload.agentName || !payload.agentName.trim()) {
+                if (!silent) showToast('Isi Nama Detektif dulu di tab Profil sebelum menyimpan!', '⚠️');
+                return false;
+            }
+
+            // Resolve the API path relative to the parent app (this file runs inside an iframe).
+            const apiUrl = new URL('/api/submissions', window.location.origin).toString();
 
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                const res = await fetch(apiUrl, {
                     method: 'POST',
-                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                console.log("✅ Data peserta berhasil dikirim ke server/Google Sheet!");
+
+                if (!res.ok) {
+                    console.error("⚠️ Gagal menyimpan data ke database:", res.status);
+                    if (!silent) showToast('Gagal menyimpan data ke database.', '⚠️');
+                    return false;
+                }
+
+                console.log("✅ Data peserta berhasil disimpan ke database!");
+                if (!silent) showToast('Data laporan berhasil disimpan ke database!', '💾');
+                return true;
             } catch (err) {
                 console.error("⚠️ Gagal mengirim data ke server:", err);
+                if (!silent) showToast('Koneksi ke server gagal. Coba lagi.', '⚠️');
+                return false;
+            }
+        }
+
+        async function saveSubmissionManually() {
+            const btn = document.getElementById('saveDbButton');
+            if (btn) {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+            await saveSubmissionToCloud(false);
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-60', 'cursor-not-allowed');
             }
         }
     </script>
